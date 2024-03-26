@@ -14,7 +14,8 @@ namespace BloodBankManagementWebapi.Controllers
         {
             _context = context;
         }
-        [HttpDelete("id")]
+        [Route("/BloodCamp/{id}")]
+        [HttpDelete]
         public IActionResult Delete(string id)
         {
             var bloodCampBank = _context.BloodCampBloodBank.Where(s => s.BloodCamp.BloodCampId == id).FirstOrDefault();
