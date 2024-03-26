@@ -43,7 +43,7 @@ namespace BloodBankManagementWebapi.Controllers
             _context.BloodRequest.Add(bloodRequest);
             if (_context.SaveChanges()>0)
             {
-                return Ok();
+                return Ok(bloodRequest.BloodRequestId);
             }
             return BadRequest();
                 

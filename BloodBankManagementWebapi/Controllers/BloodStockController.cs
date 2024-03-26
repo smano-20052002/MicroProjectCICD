@@ -3,6 +3,7 @@ using BloodBankManagementWebapi.DataContext;
 using BloodBankManagementWebapi.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BloodBankManagementWebapi.Controllers
 {
@@ -18,10 +19,10 @@ namespace BloodBankManagementWebapi.Controllers
         [HttpPost]
         public IActionResult AddBloodStock([FromBody] BloodStockDto bloodStockDto)
         {
-           // var bloodstock = _context.BloodBankBloodStock.Where(x => x.BloodStock.BloodType == bloodStockDto.BloodType).Where(i => i.Account.AccountId == bloodStockDto.AccountId).FirstOrDefault();
-           // var blood = _context.BloodStock.Where(x => x.BloodStockId == bloodstock.BloodStock.BloodStockId).FirstOrDefault();
-           // if (bloodstock == null)
-            //{
+            var bloodstockcount = _context.BloodBankBloodStock.Include(a => a.BloodStock).Include(z => z.Account).Where(x => x.BloodStock.BloodType == bloodStockDto.BloodType).Where(i => i.Account.AccountId == bloodStockDto.AccountId).Count();
+            if (bloodstockcount == 0)
+            {
+
                 BloodStock bloodStock = new BloodStock()
                 {
                     BloodStockId = Guid.NewGuid().ToString(),
@@ -38,17 +39,42 @@ namespace BloodBankManagementWebapi.Controllers
                 _context.BloodStock.Add(bloodStock);
                 _context.BloodBankBloodStock.Add(bloodBankBloodStock);
                 _context.SaveChanges();
+                return Ok();
 
-           // }
-         //   else
-           // {
-             //   blood.Units += bloodStockDto.Units;
-             //   _context.BloodStock.Update(blood);
-               // _context.SaveChanges();
+            }
+            else
+            {
+                var bloodstock = _context.BloodBankBloodStock.Include(a => a.BloodStock).Include(z => z.Account).Where(x => x.BloodStock.BloodType == bloodStockDto.BloodType).Where(i => i.Account.AccountId == bloodStockDto.AccountId).FirstOrDefault();
+                var blood = _context.BloodStock.Where(x => x.BloodStockId == bloodstock.BloodStock.BloodStockId).FirstOrDefault();
 
-            //}
-           
-            return Ok();
+                blood.Units += bloodStockDto.Units;
+                _context.BloodStock.Update(blood);
+                _context.SaveChanges();
+                return Ok();
+
+            }
+
+
+
+
+        }
+        [Route("GetStockByBank/{id}/{type}")]
+        [HttpGet]
+        public IActionResult Get(string id,string type)
+        {
+            var account = _context.Account.Find(id);
+            var bloodstock = 0;
+            var blood = _context.BloodBankBloodStock.Include(x => x.BloodStock).Include(a => a.Account).Where(e => e.Account == account).Where(d => d.BloodStock.BloodType == type).FirstOrDefault();
+            if (blood == null)
+            {
+                bloodstock = 0;
+            }
+            else
+            {
+                bloodstock=blood.BloodStock.Units;
+            }
+                
+            return Ok(bloodstock);
         }
     }
 }
