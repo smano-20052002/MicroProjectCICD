@@ -10,7 +10,7 @@ namespace BloodBankManagementWebapi.Model
         public string Email { get; set; }
         public string Password { get; set; }
         public long PhoneNumber { get; set; }
-        [DefaultValue(0)]
+        [DefaultValue(0)] 
         public int Status { get; set; } = 0;
         //public ICollection<AccountRole> AccountRole { get; }
         
@@ -21,6 +21,10 @@ namespace BloodBankManagementWebapi.Model
         public BloodTransaction BloodTransaction { get; }
         public BloodCampBloodBank BloodCampBloodBank { get; }
         public BloodBankBloodStock BloodBankBloodStock { get; }
+       // public ICollection<BloodStockRequester> StockRequests { get; }
+
+     //   public ICollection<BloodStock> BloodStock { get; set;}
+
 
 
     }

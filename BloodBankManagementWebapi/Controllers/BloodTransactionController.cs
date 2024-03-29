@@ -21,6 +21,9 @@ namespace BloodBankManagementWebapi.Controllers
             if(_context.BloodRequest.Any(x=>x.BloodRequestId==bloodTransactionModel.BloodRequestId)) {
                 var account = _context.Account.Find(bloodTransactionModel.AccountId);
                 var bloodRequest = _context.BloodRequest.Find(bloodTransactionModel.BloodRequestId);
+                bloodRequest.Status = 4;
+                _context.BloodRequest.Update(bloodRequest);
+                _context.SaveChanges();
                 BloodTransaction bloodTransaction = new BloodTransaction()
                 {
                     BloodTransactionId = Guid.NewGuid().ToString(),
@@ -31,11 +34,11 @@ namespace BloodBankManagementWebapi.Controllers
                     Account = account,
                     BloodRequest = bloodRequest
                 };
-                var bloodStock = _context.BloodBankBloodStock.Include(x => x.BloodStock).Include(x => x.Account).Where(x => x.Account == account).Where(x => x.BloodStock.BloodType == bloodTransactionModel.BloodType).Select(x => new BloodStock
+                var bloodStock = _context.BloodStock.Include(x => x.Account).Where(x => x.Account == account).Where(x => x.BloodType == bloodTransactionModel.BloodType).Select(x => new BloodStock
                 {
-                    BloodStockId = x.BloodStock.BloodStockId,
-                    BloodType = x.BloodStock.BloodType,
-                    Units = x.BloodStock.Units
+                    BloodStockId = x.BloodStockId,
+                    BloodType = x.BloodType,
+                    Units = x.Units
 
                 }).FirstOrDefault();
                 bloodStock.Units = bloodStock.Units - bloodTransactionModel.units;

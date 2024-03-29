@@ -14,11 +14,11 @@ namespace BloodBankManagementWebapi.Controllers
     public class RegisterController : ControllerBase
     {
         private readonly AppDbContext _context;
-        private readonly IConfiguration _configuration;
-        public RegisterController(AppDbContext context, IConfiguration configuration)
+        //private readonly IConfiguration _configuration;
+        public RegisterController(AppDbContext context)
         {
             _context = context;
-            _configuration = configuration;
+        //    _configuration = configuration;
         }
         [HttpPost]
 

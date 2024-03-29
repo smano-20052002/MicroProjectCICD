@@ -17,7 +17,7 @@ namespace BloodBankManagementWebapi.ApiModel
     {
         public bool IdExists { get; set; }
         public string Status { get; set; }
-        public List<BloodRequestBloodBank> bloodRequestBloodBank { get; set; }
+        public List<BloodBankStock> bloodRequestBloodBank { get; set; }
     }
     public class ApproveOrRejectReturnMessage()
     {

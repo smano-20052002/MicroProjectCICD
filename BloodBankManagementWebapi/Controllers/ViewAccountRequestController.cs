@@ -62,6 +62,7 @@ namespace BloodBankManagementWebapi.Controllers
 
             var accountDetails = _context.AccountUserDetailsAddress.Include(x => x.UserDetails).Include(a => a.Account).Include(s => s.Address).Where(x => x.UserDetails.rolestatus == 2).Where(x => x.Account.Status != 0).Select(l => new HospitalBloodBankDetails
             {
+                Id=l.Account.AccountId,
                 Name = l.Account.Name,
                 Email = l.Account.Email,
                 PhoneNumber = l.Account.PhoneNumber,
@@ -87,6 +88,7 @@ namespace BloodBankManagementWebapi.Controllers
 
             var accountDetails = _context.AccountUserDetailsAddress.Include(x => x.UserDetails).Include(a => a.Account).Include(s => s.Address).Where(x => x.UserDetails.rolestatus == 1).Where(x => x.Account.Status != 0).Select(l => new HospitalBloodBankDetails
             {
+                Id=l.Account.AccountId,
                 Name = l.Account.Name,
                 Email = l.Account.Email,
                 PhoneNumber = l.Account.PhoneNumber,

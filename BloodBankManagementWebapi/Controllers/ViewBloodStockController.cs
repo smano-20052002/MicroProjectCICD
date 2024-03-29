@@ -17,7 +17,7 @@ namespace BloodBankManagementWebapi.Controllers
         [HttpGet]
         public ActionResult ViewBloodStock()
         {
-            var BloodStock= _context.BloodBankBloodStock.Include(x=>x.BloodStock).Include(y=>y.Account).ToList();
+            var BloodStock= _context.BloodStock.Include(y=>y.Account).ToList();
             return Ok(BloodStock);
         }
         [HttpGet]
@@ -25,7 +25,7 @@ namespace BloodBankManagementWebapi.Controllers
 
         {
             var account = _context.Account.Find(id);
-            var BloodStock = _context.BloodBankBloodStock.Include(x => x.BloodStock).Include(y => y.Account).ToList().Where(x=>x.Account==account);
+            var BloodStock = _context.BloodStock.Include(y => y.Account).ToList().Where(x=>x.Account==account);
             return Ok(BloodStock);
         }
     }

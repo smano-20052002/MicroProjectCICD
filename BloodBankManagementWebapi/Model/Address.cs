@@ -12,6 +12,7 @@
         public string PostalCode { get; set; }
 
         //public ICollection<AccountUserDetailsAddress> AccountUserDetailsAddresses { get; }
+     //   public ICollection<BloodStockRequester> StockRequests { get; }
 
 
 

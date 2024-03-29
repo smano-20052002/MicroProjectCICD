@@ -16,6 +16,7 @@
         public long AadhaarNumber { get; set; }
 
         public int rolestatus { get; set; }
+      //  public ICollection<BloodStockRequester> StockRequests { get; }
 
 
 

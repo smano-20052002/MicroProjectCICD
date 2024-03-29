@@ -2,6 +2,7 @@
 using BloodBankManagementWebapi.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BloodBankManagementWebapi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240327041749_3.0")]
+    partial class _30
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,6 +130,27 @@ namespace BloodBankManagementWebapi.Migrations
                     b.ToTable("Address");
                 });
 
+            modelBuilder.Entity("BloodBankManagementWebapi.Model.BloodBankBloodStock", b =>
+                {
+                    b.Property<string>("BloodBankBloodStockId")
+                        .HasColumnType("varchar(95)");
+
+                    b.Property<string>("AccountId")
+                        .IsRequired()
+                        .HasColumnType("varchar(95)");
+
+                    b.Property<string>("BloodStockId")
+                        .HasColumnType("varchar(95)");
+
+                    b.HasKey("BloodBankBloodStockId");
+
+                    b.HasIndex("AccountId");
+
+                    b.HasIndex("BloodStockId");
+
+                    b.ToTable("BloodBankBloodStock");
+                });
+
             modelBuilder.Entity("BloodBankManagementWebapi.Model.BloodCamp", b =>
                 {
                     b.Property<string>("BloodCampId")
@@ -228,10 +252,6 @@ namespace BloodBankManagementWebapi.Migrations
                     b.Property<string>("BloodStockId")
                         .HasColumnType("varchar(95)");
 
-                    b.Property<string>("AccountId")
-                        .IsRequired()
-                        .HasColumnType("varchar(95)");
-
                     b.Property<string>("BloodType")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -240,8 +260,6 @@ namespace BloodBankManagementWebapi.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("BloodStockId");
-
-                    b.HasIndex("AccountId");
 
                     b.ToTable("BloodStock");
                 });
@@ -406,6 +424,23 @@ namespace BloodBankManagementWebapi.Migrations
                     b.Navigation("UserDetails");
                 });
 
+            modelBuilder.Entity("BloodBankManagementWebapi.Model.BloodBankBloodStock", b =>
+                {
+                    b.HasOne("BloodBankManagementWebapi.Model.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BloodBankManagementWebapi.Model.BloodStock", "BloodStock")
+                        .WithMany()
+                        .HasForeignKey("BloodStockId");
+
+                    b.Navigation("Account");
+
+                    b.Navigation("BloodStock");
+                });
+
             modelBuilder.Entity("BloodBankManagementWebapi.Model.BloodCampBloodBank", b =>
                 {
                     b.HasOne("BloodBankManagementWebapi.Model.Account", "Account")
@@ -425,39 +460,28 @@ namespace BloodBankManagementWebapi.Migrations
                     b.Navigation("BloodCamp");
                 });
 
-            modelBuilder.Entity("BloodBankManagementWebapi.Model.BloodStock", b =>
-                {
-                    b.HasOne("BloodBankManagementWebapi.Model.Account", "Account")
-                        .WithMany("BloodStock")
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Account");
-                });
-
             modelBuilder.Entity("BloodBankManagementWebapi.Model.BloodStockRequester", b =>
                 {
                     b.HasOne("BloodBankManagementWebapi.Model.Account", "Account")
-                        .WithMany()
+                        .WithMany("StockRequests")
                         .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("BloodBankManagementWebapi.Model.Address", "Address")
-                        .WithMany()
+                        .WithMany("StockRequests")
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("BloodBankManagementWebapi.Model.BloodRequest", "BloodRequest")
-                        .WithMany()
+                        .WithMany("StockRequests")
                         .HasForeignKey("BloodRequestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("BloodBankManagementWebapi.Model.UserDetails", "UserDetails")
-                        .WithMany()
+                        .WithMany("StockRequests")
                         .HasForeignKey("UserDetailsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -492,7 +516,22 @@ namespace BloodBankManagementWebapi.Migrations
 
             modelBuilder.Entity("BloodBankManagementWebapi.Model.Account", b =>
                 {
-                    b.Navigation("BloodStock");
+                    b.Navigation("StockRequests");
+                });
+
+            modelBuilder.Entity("BloodBankManagementWebapi.Model.Address", b =>
+                {
+                    b.Navigation("StockRequests");
+                });
+
+            modelBuilder.Entity("BloodBankManagementWebapi.Model.BloodRequest", b =>
+                {
+                    b.Navigation("StockRequests");
+                });
+
+            modelBuilder.Entity("BloodBankManagementWebapi.Model.UserDetails", b =>
+                {
+                    b.Navigation("StockRequests");
                 });
 #pragma warning restore 612, 618
         }

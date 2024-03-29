@@ -6,6 +6,7 @@
         public string BloodType { get; set; }
         
         public int Units { get; set; }
-        public BloodBankBloodStock BloodBankBloodStock { get; }
+       // public BloodBankBloodStock BloodBankBloodStock { get; }
+       public Account Account { get; set; }
     }
 }

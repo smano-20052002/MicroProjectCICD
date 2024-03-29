@@ -1,8 +1,10 @@
-﻿using Google.Protobuf;
+﻿using BloodBankManagementWebapi.Model;
+using Google.Protobuf;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Org.BouncyCastle.Asn1.Ocsp;
 using System.Net;
 using System.Net.Mail;
+using System.Xml.Linq;
 
 namespace BloodBankManagementWebapi.OtherOperation
 {
@@ -117,6 +119,34 @@ namespace BloodBankManagementWebapi.OtherOperation
                 return false;
             }
 
+
+        }
+        public static void SendEmailForAcceptRequest(string Email, string BloodRequestId, Account account, Address address,UserDetails userdetails)
+        {
+            string fromMail = "smano8312@gmail.com";
+            string senderPass = "mktt mzmx pasy gdgl";
+            MailMessage message = new MailMessage();
+            message.From = new MailAddress(fromMail);
+            message.To.Add(Email);
+                message.Subject = $"Important! Your Blood Request is accept by {account.Name}";
+
+                message.Body = $"Dear {account.Name},\r\n\r\nYour request is accepted by {account.Name}-{userdetails.Location}.Please check the bank and collect the blood. \nAddress :\n{address.DoorNo},\n{address.Street},\n{address.Area},\n{address.City},\n{address.State}-{address.PostalCode}.\r\n\r\nThank you, Management Team";
+
+
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
+            smtpClient.Port = 587;
+            smtpClient.UseDefaultCredentials = false;
+            smtpClient.Credentials = new NetworkCredential(fromMail, senderPass);
+            smtpClient.EnableSsl = true;
+            try
+            {
+                smtpClient.Send(message);
+                return;
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
 
         }
     }

@@ -9,7 +9,7 @@ namespace BloodBankManagementWebapi.Controllers
     public class RoleController : ControllerBase
     {
         private readonly AppDbContext _context;
-        public RoleController(AppDbContext context, IConfiguration configuration)
+        public RoleController(AppDbContext context)
         {
             _context = context;
         }

@@ -78,15 +78,15 @@ namespace BloodBankManagementWebapi.Controllers
         {
             var account= _context.Account.Find(Id);
             
-             var Apositive = _context.BloodBankBloodStock.Include(x => x.Account).Include(x => x.BloodStock).Where(x => x.Account == account).Where(x => x.BloodStock.BloodType == "A+ve").Sum(x => x.BloodStock.Units);
-            var Bpositive = _context.BloodBankBloodStock.Include(x => x.Account).Include(x => x.BloodStock).Where(x => x.Account == account).Where(x => x.BloodStock.BloodType == "B+ve").Sum(x => x.BloodStock.Units);
-            var Opositive = _context.BloodBankBloodStock.Include(x => x.Account).Include(x => x.BloodStock).Where(x => x.Account == account).Where(x => x.BloodStock.BloodType == "O+ve").Sum(x => x.BloodStock.Units);
-            var ABpositive = _context.BloodBankBloodStock.Include(x => x.Account).Include(x => x.BloodStock).Where(x => x.Account == account).Where(x => x.BloodStock.BloodType == "AB+ve").Sum(x => x.BloodStock.Units);
-            var Anegative = _context.BloodBankBloodStock.Include(x => x.Account).Include(x => x.BloodStock).Where(x => x.Account == account).Where(x => x.BloodStock.BloodType == "A-ve").Sum(x => x.BloodStock.Units);
-            var ABnegative = _context.BloodBankBloodStock.Include(x => x.Account).Include(x => x.BloodStock).Where(x => x.Account == account).Where(x => x.BloodStock.BloodType == "AB-ve").Sum(x => x.BloodStock.Units);
-            var Onegative = _context.BloodBankBloodStock.Include(x => x.Account).Include(x => x.BloodStock).Where(x => x.Account == account).Where(x => x.BloodStock.BloodType == "O-ve").Sum(x => x.BloodStock.Units);
-            var Bnegative = _context.BloodBankBloodStock.Include(x => x.Account).Include(x => x.BloodStock).Where(x => x.Account == account).Where(x => x.BloodStock.BloodType == "B-ve").Sum(x => x.BloodStock.Units);
-            BloodDashboard bloodDashboard = new BloodDashboard
+             var Apositive = _context.BloodStock.Include(x => x.Account).Where(x => x.Account == account).Where(x => x.BloodType == "A+ve").Sum(x => x.Units);
+            var Bpositive = _context.BloodStock.Include(x => x.Account).Where(x => x.Account == account).Where(x => x.BloodType == "B+ve").Sum(x => x.Units);
+            var Opositive = _context.BloodStock.Include(x => x.Account).Where(x => x.Account == account).Where(x => x.BloodType == "O+ve").Sum(x => x.Units);
+            var ABpositive = _context.BloodStock.Include(x => x.Account).Where(x => x.Account == account).Where(x => x.BloodType == "AB+ve").Sum(x => x.Units);
+            var Anegative = _context.BloodStock.Include(x => x.Account).Where(x => x.Account == account).Where(x => x.BloodType == "A-ve").Sum(x => x.Units);
+            var ABnegative = _context.BloodStock.Include(x => x.Account).Where(x => x.Account == account).Where(x => x.BloodType == "AB-ve").Sum(x => x.Units);
+            var Onegative = _context.BloodStock.Include(x => x.Account).Where(x => x.Account == account).Where(x => x.BloodType == "O-ve").Sum(x => x.Units);
+            var Bnegative = _context.BloodStock.Include(x => x.Account).Where(x => x.Account == account).Where(x => x.BloodType == "B-ve").Sum(x => x.Units);
+             BloodDashboard bloodDashboard = new BloodDashboard
             {
                 ABnegative = ABnegative,
                 Bnegative = Bnegative,
@@ -96,6 +96,7 @@ namespace BloodBankManagementWebapi.Controllers
                 ABpositive = ABpositive,
                 Apositive = Apositive,
                 Bpositive = Bpositive,
+               
             };
 
             return Ok(bloodDashboard);
