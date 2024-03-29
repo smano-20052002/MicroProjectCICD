@@ -16,8 +16,8 @@ namespace BloodBankManagementWebapi.ApiModel
     public class CheckBloodRequestStatusMessage
     {
         public bool IdExists { get; set; }
-        public string Status { get; set; }
-        public List<BloodBankStock> bloodRequestBloodBank { get; set; }
+        public string? Status { get; set; }
+        public List<BloodBankStock>? bloodRequestBloodBank { get; set; }
     }
     public class ApproveOrRejectReturnMessage()
     {
@@ -27,10 +27,10 @@ namespace BloodBankManagementWebapi.ApiModel
     }
     public class AuthMessageModel
     {
-        public string AccountApproval { get; set; }
+        public string? AccountApproval { get; set; }
         public bool AccountExists { get; set; }
         public bool PasswordStatus { get; set; }
-        public string Token { get; set; }
+        public string? Token { get; set; }
 
     }
     public class SignUpMessageModel

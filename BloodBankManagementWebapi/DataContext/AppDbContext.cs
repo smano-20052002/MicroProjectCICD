@@ -10,7 +10,6 @@ namespace BloodBankManagementWebapi.DataContext
         public DbSet<AccountRole>  AccountRole { get; set; }
         public DbSet<Address> Address { get; set; }
         public DbSet<UserDetails> UserDetails { get; set; }
-        //public DbSet<BloodBankBloodStock> BloodBankBloodStock { get; set; }
         public DbSet<BloodCamp> BloodCamp { get; set; }
         public DbSet<BloodStock> BloodStock { get; set; }
         public DbSet<BloodTransaction> BloodTransaction { get; set; }

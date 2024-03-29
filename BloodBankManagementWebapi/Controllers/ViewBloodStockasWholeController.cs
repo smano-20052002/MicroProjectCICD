@@ -45,8 +45,6 @@ namespace BloodBankManagementWebapi.Controllers
                 {
                     bloodstock.Add(i);
                 }
-                
-
             };
 
             return Ok(bloodstock);

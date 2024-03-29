@@ -2,14 +2,14 @@
 {
     public class UserDetails
     {
-        public string UserDetailsId { get; set; }
+        public string? UserDetailsId { get; set; }
 
         public int Age { get; set; }    
-        public string BloodType { get; set; }
+        public string? BloodType { get; set; }
 
-        public string Location {  get; set; }
+        public string? Location {  get; set; }
 
-        public string GovernmentId {  get; set; }
+        public string? GovernmentId {  get; set; }
         
         public byte[] Document { get; set; }
 

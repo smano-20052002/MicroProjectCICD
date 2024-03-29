@@ -2,7 +2,7 @@
 {
     public class BloodStockRequester
     {
-        public string BloodStockRequesterId {  get; set; }
+        public string? BloodStockRequesterId {  get; set; }
 
         public BloodRequest BloodRequest { get; set; }
 

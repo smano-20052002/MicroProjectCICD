@@ -33,9 +33,9 @@ namespace TestProject1
         //    Role roles1 = new Role()
         //    {
         //        RoleId = Guid.NewGuid().ToString(),
-        //        RoleName = "Admin"
+        //        RoleName = "DONOR"
         //    };
-        //    var result=_controller.PostRole(roles1);
+        //    var result = _controller.PostRole(roles1);
         //    Assert.IsInstanceOf<OkResult>(result);
         //}
     }

@@ -2,7 +2,7 @@
 {
     public class BloodBankStockAll
     {
-        public string BloodBankName {  get; set; }
-        public string Location { get; set; }
+        public string? BloodBankName {  get; set; }
+        public string? Location { get; set; }
     }
 }

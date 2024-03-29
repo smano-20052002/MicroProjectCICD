@@ -2,11 +2,10 @@
 {
     public class BloodStock
     {
-        public string BloodStockId { get; set; }
-        public string BloodType { get; set; }
+        public string? BloodStockId { get; set; }
+        public string? BloodType { get; set; }
         
         public int Units { get; set; }
-       // public BloodBankBloodStock BloodBankBloodStock { get; }
-       public Account Account { get; set; }
+       public Account? Account { get; set; }
     }
 }
