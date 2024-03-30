@@ -4,7 +4,7 @@ namespace BloodBankManagementWebapi.DataContext
 {
     public class AppDbContext:DbContext
     {
-        public AppDbContext(DbContextOptions<DbContext> options) : base(options) { }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
         public DbSet<Account> Account{ get; set; }
         public DbSet<Role> Role { get; set; }
         public DbSet<AccountRole>  AccountRole { get; set; }
